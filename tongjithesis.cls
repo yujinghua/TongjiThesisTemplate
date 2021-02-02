@@ -105,6 +105,7 @@
 % 给 \pkg{fontspec} 宏包 \option{no-math} 选项，避免部分数学符号字体自动调整
 % 为 CMR。其他引擎下没有这个问题，这一行会被无视。
 \PassOptionsToPackage{no-math}{fontspec}
+\PassOptionsToPackage{quiet}{fontspec}
 
 %将伪粗体与伪斜体的选项传递给xeCJK package
 \PassOptionsToPackage{AutoFakeBold=1.2,AutoFakeSlant}{xeCJK}
@@ -211,7 +212,7 @@
   breaklinks=true,
   colorlinks=false,
   plainpages=false,
-  pdfpagelabels, %将\thepage写入pdf，使得阅读器可以显示‘ii (4 of 40)’ rather than simply ‘4 of 40’. 貌似不设这个选项也行？
+  % pdfpagelabels, %将\thepage写入pdf，使得阅读器可以显示‘ii (4 of 40)’ rather than simply ‘4 of 40’. 貌似不设这个选项也行？
   pdfborder=0 0 0}
 % 设置 url 样式，与上下文一致
 \urlstyle{same}
@@ -222,13 +223,13 @@
 	a4paper, % 210 * 297mm
 	hcentering,%将hmarginratio设为1:1，即left=right
 	ignoreall,%body部分不包含top,bottom,left,right，即textheight就是正文的高度。
-	textheight=246.2mm,%297-25.4x2
+	textheight=241.2mm,%297-25.4x2-5
 	bottom=25.4mm,
 	nomarginpar,%即\marginparwidth=0pt and \marginparsep=0pt
 	left=31.7mm,%注意left=right
 	headheight=5mm,
-	headsep=5.4mm,	%页眉距顶端要求2cm。即25.4-20=5.4
-	footskip=5.4mm}	%\footskip指的是baseline of last line of text andbaseline of footer的距离
+	headsep=5mm, %14bp, 正文段前首行0.7倍行
+	footskip=5.51mm}	%\footskip指的是baseline of last line of text and baseline of footer的距离. 25.4 - 20 = 5.4，设置为5.51后消除warning信息：Package Fancyhdr Warning: \footskip is too small (15.36446pt):Make it at least 15.61334pt. (Log parsing issues. Disregard unless something else is wrong.)
 
 % 利用 \pkg{fancyhdr} 设置页眉页脚
 \RequirePackage{fancyhdr}
@@ -464,7 +465,7 @@
     pagestyle={tongji@headings},%这句用来保证章首页的页眉正确
     % 注意我们在前面\mainmatter时已经定义过\pagestyle{tongji@headings}
   % 了，但必须在这里重新应用一次，用来保证章首页的页眉正确。
-    beforeskip={2bp},%设置章节标题前的垂直间距
+    beforeskip={10bp},%设置章节标题前的垂直间距, 章标题在页首时，beforeskip自动忽略，需添加fixskip=true，设置的值为24bp（要求值）- 14bp（之前设置的headskip值）
     aftername=\hskip\ccwd, %控制章节编号与标题内容之间的距离
     % \ccwd 为一个汉字的宽度。在ctex宏集中有介绍。
     afterskip={18bp}, %控制章节标题与后面下方之间的距离
@@ -476,6 +477,7 @@
     titleformat=\bfseries,
     lofskip=0pt, %控制插图目录（.lof）中，章之间的插图标题的距离
     lotskip=0pt,%控制表格目录（.lot）中，章之间的表格标题的距离
+    fixskip=true
   },
   section={ %一级节标题
     afterindent=true,
