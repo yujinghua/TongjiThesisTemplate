@@ -1,4 +1,12 @@
-# TongjiThesis
+# Tongji Thesis Template
+
+本项目fork后，对页面设置及格式设置进行了调整，使用笔记详见：[(非官方)同济大学硕博论文Letax模板使用笔记](https://yujinghua.github.io/blog/tongji-thesis-template.html)
+（因运行环境差异，未提交至主线项目。使用者请根据自身的运行环境，进行必要的检查与调整。）
+
+---
+以下为原项目中的readme
+---
+
 ## 总览
 同济大学硕博士论文LaTeX模板。
 
